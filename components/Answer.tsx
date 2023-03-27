@@ -16,6 +16,7 @@ const Answer = (props: Props) => {
   }
 
   const buttonClick=async()=>{
+    setAnswer("Loading...")
     const response = await openAi.createChatCompletion({
       model: "gpt-3.5-turbo",
       messages: [{ role: "user", content: input+scripture }],
@@ -53,10 +54,7 @@ const Answer = (props: Props) => {
                 <option className='text-center tracking-widest'>Holy Quran</option>
                 <option className='text-center tracking-widest'>Holy Bible</option>
                 <option className='text-center tracking-widest'>Guru Granth Sahib</option>
-                
-                <option className='text-center tracking-widest'>Jainism</option>
-                
-                
+                <option className='text-center tracking-widest'>Jainism</option>    
             </select>
         </form>
 {/* button */}
