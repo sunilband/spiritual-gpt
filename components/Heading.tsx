@@ -9,9 +9,9 @@ type Props = {}
 const Heading = (props: Props) => {
   return (
     
-    <>
-    <h1 className={`${zigfont.className} text-center font-extrabold p-10 tracking-[10px] text-4xl`}>Spiritual Gpt</h1>
-    </>
+    <div className='z-20 absolute left-0 right-0'>
+    <h1 className={`${zigfont.className} text-center font-extrabold pt-10 tracking-[15px] text-3xl md:text-7xl z-20`}>Spiritual Gpt</h1>
+    </div>
   )
 }
 
