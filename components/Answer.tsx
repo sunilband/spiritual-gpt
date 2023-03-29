@@ -7,7 +7,7 @@ type Props = {};
 const Answer = (props: Props) => {
   const [input, setInput] = useState("");
   const [answer, setAnswer] = useState("");
-  const [scripture, setScripture] = useState("Bhagavad Gita / Hinduism");
+  const [scripture, setScripture] = useState("Bhagavad Gita / Hinduism . also give references");
 
   // const key = process.env.OPEN_AI_API_KEY;
   // const openAi = new OpenAIApi(
@@ -36,7 +36,7 @@ const Answer = (props: Props) => {
 
   const dropdown = (e: any) => {
     setScripture(
-      ` in detail according to ${e.target.value}? also give references`
+      `${e.target.value}`
     );
     console.log(scripture);
   };
