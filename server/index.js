@@ -28,13 +28,13 @@ server.post("/", async (req, res) => {
   const question = req.body.question;
   const scripture = req.body.scripture;
   const language =req.body.language;
-  console.log(question, scripture);
+  console.log(question, scripture,language);
   const response = await openAi.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: "user",
-        content: question + ` according to ${scripture}. also give references. answer only in ${language}`,
+        content: question + ` according to ${scripture}. also give references.answer only in in ${language}`,
       },
     ],
   });
@@ -44,6 +44,7 @@ server.post("/", async (req, res) => {
 catch (error) {
   console.error(error)
   res.status(500).send(error || 'Something went wrong');
+  res.json({ answer: "Something went wrong"});
 }
 });
 
