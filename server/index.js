@@ -25,8 +25,8 @@ fs.readFile("key.txt","utf-8",async(err,keyData)=>{
 
         const openAi = new OpenAIApi(
             new Configuration({
-              // apiKey:process.env.OPEN_AI_API_KEY,
-              apiKey:keyData
+              apiKey:process.env.OPEN_AI_API_KEY
+              // apiKey:keyData
             })
           )
         const response = await openAi.createChatCompletion({
