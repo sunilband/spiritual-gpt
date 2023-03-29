@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { Configuration, OpenAIApi } from "openai";
 import axios from "axios"
 
 type Props = {};
@@ -8,14 +7,8 @@ const Answer = (props: Props) => {
   const [input, setInput] = useState("");
   const [answer, setAnswer] = useState("");
   const [scripture, setScripture] = useState("Bhagavad Gita / Hinduism . also give references");
+  const [language,setLanguage]=useState("English")
 
-  // const key = process.env.OPEN_AI_API_KEY;
-  // const openAi = new OpenAIApi(
-  //   new Configuration({
-  //     apiKey: "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",
-  //     // apiKey:key
-  //   })
-  // );
   const setterInput = async (e: any) => {
     setInput(e.target.value);
   };
@@ -23,7 +16,7 @@ const Answer = (props: Props) => {
   const buttonClick = async () => {
     if(input.length!=0){
       setAnswer("Loading Response...");
-      const result = await axios.post('https://server-31um.onrender.com',({scripture:scripture,question:input}));
+      const result = await axios.post('https://server-31um.onrender.com',({scripture:scripture,question:input,language:language}));
       setAnswer(result.data.answer)
     }
     else{
@@ -34,11 +27,16 @@ const Answer = (props: Props) => {
 
   };
 
-  const dropdown = (e: any) => {
+  const dropdownScripture = (e: any) => {
     setScripture(
       `${e.target.value}`
     );
-    console.log(scripture);
+  };
+
+  const dropdownLanguage = (e: any) => {
+    setLanguage(
+      `${e.target.value}`
+    );
   };
 
   return (
@@ -63,11 +61,12 @@ const Answer = (props: Props) => {
         placeholder="Ask question here..."
       />
 
-      {/*Dropdown  */}
-      <form className="w-72 self-center z-20">
+      {/*Dropdown for scripture */}
+      <div className="self-center z-20 flex flex-row space-x-2">
+      <form className="w-72 ">
         <select
           className="w-full p-2.5  text-white bg-[#202123] rounded-md shadow-sm outline-none appearance-none focus:border-[#202123] tracking-widest"
-          onChange={dropdown}
+          onChange={dropdownScripture}
         >
           <option className="text-center tracking-widest">
             Bhagavad Gita / Hinduism
@@ -84,6 +83,55 @@ const Answer = (props: Props) => {
           <option className="text-center tracking-widest">Jainism</option>
         </select>
       </form>
+
+      <form className="w-72 ">
+        <select
+          className="w-full p-2.5  text-white bg-[#202123] rounded-md shadow-sm outline-none appearance-none focus:border-[#202123] tracking-widest"
+          onChange={dropdownLanguage}
+        >
+          <option className="text-center tracking-widest">
+            English
+          </option>
+          <option className="text-center tracking-widest">
+            Hindi
+          </option>
+          <option className="text-center tracking-widest">
+            Marathi
+          </option>
+          <option className="text-center tracking-widest">
+            Punjabi
+          </option>
+          <option className="text-center tracking-widest">
+            Gujarati
+            </option>
+            <option className="text-center tracking-widest">
+            Tamil
+            </option>
+            <option className="text-center tracking-widest">
+            Kannada
+            </option>
+            <option className="text-center tracking-widest">
+            Bengali
+            </option>
+            <option className="text-center tracking-widest">
+            Telegu
+            </option>
+            <option className="text-center tracking-widest">
+            Odia
+            </option>
+            <option className="text-center tracking-widest">
+            Malayalam
+            </option>
+            <option className="text-center tracking-widest">
+            Urdu
+            </option>
+            <option className="text-center tracking-widest">
+            Arabic
+            </option>
+        </select>
+      </form>
+      </div>
+      
       {/* button */}
       <button
         className="w-44 self-center border-2 m-4 p-4 rounded-2xl bg-[#202123] text-white hover:scale-[1.02]   hover:font-bold hover:drop-shadow-2xl  transition-all ease-in-out duration-200 uppercase tracking-[7px] z-20"

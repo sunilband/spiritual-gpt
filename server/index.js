@@ -27,13 +27,14 @@ server.post("/", async (req, res) => {
   try{
   const question = req.body.question;
   const scripture = req.body.scripture;
+  const language =req.body.language;
   console.log(question, scripture);
   const response = await openAi.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: "user",
-        content: question + ` according to ${scripture}. also give references.`,
+        content: question + ` according to ${scripture}. also give references. answer only in ${language}`,
       },
     ],
   });
