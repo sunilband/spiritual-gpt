@@ -23,7 +23,7 @@ const Answer = (props: Props) => {
   const buttonClick = async () => {
     if(input.length!=0){
       setAnswer("Loading Response...");
-      const result = await axios.post('http://localhost:5000/',({scripture:scripture,question:input}));
+      const result = await axios.post('https://server-31um.onrender.com',({scripture:scripture,question:input}));
       setAnswer(result.data.answer)
     }
     else{
