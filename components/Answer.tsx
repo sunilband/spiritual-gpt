@@ -18,7 +18,7 @@ const Answer = (props: Props) => {
   const buttonClick = async () => {
     if (input.length != 0) {
       setAnswer("Loading Response...");
-      const result = await axios.post("http://localhost:5000", {
+      const result = await axios.post("https://spiritual-gpt-api.onrender.com", {
         scripture: scripture,
         question: input,
         language: language,
@@ -112,7 +112,7 @@ const Answer = (props: Props) => {
         Generate
       </button>
 
-      <div className="flex flex-row flex-wrap z-20 justify-between p-2  text-[#161818] pt-0 sm:pt-6">
+      <div className="relative flex flex-row flex-wrap z-20 justify-between p-2  text-[#161818] pt-0 sm:pt-6 bottom-0">
         <p
           className={`${zigfont.className} text-center z-20 font-light tracking-wide`}
         >
@@ -153,6 +153,7 @@ const Answer = (props: Props) => {
     email- sunilbandwork@gmail.com
     LinkedIn- www.linkedin.com/in/sunil-band/
     portfolio- sunilband.netlify.com
+
           `);
               setInput("");
             }}

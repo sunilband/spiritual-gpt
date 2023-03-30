@@ -14,8 +14,7 @@ server.use(cors());
 const openAi = new OpenAIApi(
   new Configuration({
     apiKey: process.env.OPEN_AI_API_KEY,
-    // apiKey:keyData
-    // apiKey:"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"
+   
   })
 );
 
@@ -28,7 +27,7 @@ server.post("/", async (req, res) => {
   const question = req.body.question;
   const scripture = req.body.scripture;
   const language =req.body.language;
-  console.log(question, scripture,language);
+  console.log( question + ` according to ${scripture}. also give references.answer only in in ${language}`);
   const response = await openAi.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
