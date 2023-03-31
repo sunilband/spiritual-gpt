@@ -36,7 +36,8 @@ server.post("/", async (req, res) => {
         content: question + ` according to ${scripture}. also give references.answer only in in ${language}`,
       },
     ],
-  });
+  }
+  );
   res.status(200);
   res.json({ answer: response.data.choices[0].message.content });
 }

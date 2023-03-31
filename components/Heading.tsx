@@ -1,7 +1,7 @@
 import React from "react";
 import localFont from "@next/font/local";
 import { motion, stagger } from "framer-motion";
-import { type } from "os";
+
 
 const zigfont = localFont({ src: "../public/fonts/zigfont.ttf" });
 
@@ -16,12 +16,13 @@ const Heading = (props: Props) => {
       className="z-20 absolute left-0 right-0"
     >
       <h1
-        className={`${zigfont.className} text-center font-extrabold pt-2 sm:pt-10 tracking-[15px] text-3xl md:text-7xl z-20 text-[#9ca3af]`}
+        className={`animate-text bg-gradient-to-r from-teal-500 via-purple-500 to-orange-500 bg-clip-text text-transparent ${zigfont.className} text-center font-extrabold pt-2 sm:pt-10 tracking-[15px] text-3xl md:text-7xl z-20 text-[#9ca3af] `}
       >
-        Spiritual Gpt
+        Spiritual GPT
       </h1>
     </motion.div>
   );
 };
+
 
 export default Heading;
