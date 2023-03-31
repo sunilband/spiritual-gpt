@@ -4,6 +4,7 @@ import type { Container, Engine } from "tsparticles-engine";
 import Particles from "react-particles";
 import {loadFull}  from "tsparticles";
 
+
 type Props = {}
 
 const Background = (props: Props) => {
@@ -18,7 +19,8 @@ const Background = (props: Props) => {
         await console.log(container);
     }, []);
     return (
-        <div className='z-0 absolute opacity-50'>
+        <div 
+        className='z-0 absolute opacity-50 overflow-hidden'>
         <Particles
             id="tsparticles"
             init={particlesInit}

@@ -17,10 +17,12 @@
     "dotenv": "^16.0.3",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
+    "framer-motion": "^10.10.0",
     "next": "13.2.4",
     "openai": "^3.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-favicon": "^2.0.3",
     "react-particles": "^2.9.3",
     "tsparticles": "^2.9.3",
     "typescript": "5.0.2"
