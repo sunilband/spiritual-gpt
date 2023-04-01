@@ -31,7 +31,7 @@ Backend
 
 ## Demo
 
-https://spiritual-gpt.vercel.app/
+https://spiritualgpt.vercel.app/
 <br/> 
 ![output.gif](output.gif)
 
