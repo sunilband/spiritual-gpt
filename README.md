@@ -32,7 +32,7 @@ Backend
 ## Demo
 <h1>https://spiritualgpt.vercel.app/</h1>
 
-<br/> 
+ 
 ![output.gif](output.gif)
 
 
