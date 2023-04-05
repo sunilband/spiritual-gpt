@@ -82,7 +82,7 @@ const Answer = (props: Props) => {
             onChange={dropdownScripture}
           >
             <option className="text-center tracking-widest">
-              Bhagavad Gita / Hinduism
+              Bhagavad Gita/ Hinduism
             </option>
             <option className="text-center tracking-widest">
               Holy Quran / Islam
@@ -93,7 +93,11 @@ const Answer = (props: Props) => {
             <option className="text-center tracking-widest">
               Guru Granth Sahib / Sikhism
             </option>
-            <option className="text-center tracking-widest">Jainism</option>
+            <option className="text-center tracking-widest">Agamas/Jainism</option>
+            <option className="text-center tracking-widest">Sutras/Buddhism</option>
+            <option className="text-center tracking-widest">The Torah/Judaism</option>
+            <option className="text-center tracking-widest">Avesta/Zoroastrianism</option>
+            
           </select>
         </form>
         {/*Dropdown for language */}
@@ -126,9 +130,10 @@ const Answer = (props: Props) => {
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, type: "spring", delay: 0.6 }}
        
-        className="w-44 self-center border-2 m-4 p-4 rounded-2xl bg-[#202123] text-white transition-all ease-in-out duration-100 uppercase tracking-[4px] z-20 "
+        className="w-44 self-center border-2 m-4 p-4 rounded-2xl bg-[#202123] text-white  transition-all ease-in-out duration-100 uppercase tracking-[4px] z-20"
         disabled={answer=="Loading Response...\nThis may take some time"?true:false}
         onClick={buttonClick}
+        
       >
         Generate
       </motion.button>
@@ -138,10 +143,10 @@ const Answer = (props: Props) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, type: "spring", delay: 1 }}
-        className={`${zigfont.className} z-20 bottom-0 flex flex-row justify-center space-x-4 sm:space-x-10 text-[#161818] `}
+        className={`${zigfont.className} z-20 bottom-0 flex flex-row justify-center space-x-4 sm:space-x-10 text-gray-400 drop-shadow-[0_1.2px_1.2px_rgba(1,1,1,1)] `}
       >
         <p
-          className="hover:text-white hover:scale-[1.05] hover:drop-shadow-2xl cursor-pointer"
+          className="hover:text-white hover:scale-[1.05] hover:drop-shadow-2xl cursor-pointer "
           onClick={() => {
             setAnswer(
               `1-Type a question (ex- what is love?)\n\n2-Select Source \n\n3-Select Response Language \n\n4-Click Generate button \n\n5-Wait for response`
