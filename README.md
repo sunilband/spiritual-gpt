@@ -30,9 +30,9 @@ Backend
 </div>  
 
 ## Demo
+<h1>https://spiritualgpt.vercel.app/</h1>
 
-https://spiritual-gpt.vercel.app/
-<br/> 
+ 
 ![output.gif](output.gif)
 
 
