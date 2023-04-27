@@ -7,8 +7,8 @@ const zigfont = localFont({ src: "../public/fonts/zigfont.ttf" });
 type Props = {};
 
 const Answer = (props: Props) => {
-  // const apiServer = "https://spiritual-gpt-api.onrender.com";
-  const apiServer = "http://localhost:5000/";
+  const apiServer = "https://spiritual-gpt-api.onrender.com";
+  // const apiServer = "http://localhost:5000/";
   const [input, setInput] = useState("");
   const [answer, setAnswer] = useState("");
   const [scripture, setScripture] = useState("Bhagavad Gita / Hinduism ");
