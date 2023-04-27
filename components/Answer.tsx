@@ -74,7 +74,7 @@ const Answer = (props: Props) => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, type: "spring", delay: 0.4 }}
-        className="self-center z-20 flex flex-row flex-wrap justify-center mt-4 p-3"
+        className="self-center z-20 flex flex-row flex-wrap justify-center mt-2 p-2"
       >
         <form className="w-72 px-2 pb-2">
           <select
@@ -137,7 +137,7 @@ const Answer = (props: Props) => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, type: "spring", delay: 0.6 }}
-        className={`h-20 w-20 self-center bg-[#202123] text-white  transition-all ease-in-out duration-100 uppercase tracking-[4px] z-20 flex justify-center items-center rounded-full  mt-2 mb-4 ${
+        className={`h-16 w-16 self-center bg-[#202123] text-white  transition-all ease-in-out duration-100 uppercase tracking-[4px] z-20 flex justify-center items-center rounded-full ${
           answer == "Loading Response...\nThis may take some time"
             ? "animate-spin"
             : ""
