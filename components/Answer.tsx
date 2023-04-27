@@ -7,15 +7,15 @@ const zigfont = localFont({ src: "../public/fonts/zigfont.ttf" });
 type Props = {};
 
 const Answer = (props: Props) => {
-  const apiServer = "https://spiritual-gpt-api.onrender.com";
+  // const apiServer = "https://spiritual-gpt-api.onrender.com";
+  const apiServer = "http://localhost:5000/";
   const [input, setInput] = useState("");
   const [answer, setAnswer] = useState("");
   const [scripture, setScripture] = useState("Bhagavad Gita / Hinduism ");
   const [language, setLanguage] = useState("English");
 
   const setterInput = async (e: any) => {
-    if(answer=="Type a question first !")
-    setAnswer("")
+    if (answer == "Type a question first !") setAnswer("");
     setInput(e.target.value);
   };
 
@@ -42,7 +42,7 @@ const Answer = (props: Props) => {
   };
 
   return (
-    <div className="flex flex-col justify-center z-20 md:pt-20 w-screen h-screen">
+    <div className="flex flex-col justify-center z-20 md:pt-20 w-screen h-screen relative">
       {/* answer field */}
       <motion.textarea
         initial={{ scale: 0 }}
@@ -63,7 +63,7 @@ const Answer = (props: Props) => {
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, type: "spring", delay: 0.2 }}
         type="text"
-        className={`${zigfont.className} self-center focus:outline-none border-1 border-[#202123] m-4 p-4 rounded-2xl bg-[#40414f] text-white w-4/5 tracking-wide z-20 `}
+        className={`${zigfont.className} self-center focus:outline-none border-1 border-[#202123] m-4 p-4 rounded-2xl bg-[#40414f] text-white w-4/5 tracking-wide z-20  `}
         value={input}
         onChange={setterInput}
         placeholder="Ask question here..."
@@ -74,7 +74,7 @@ const Answer = (props: Props) => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, type: "spring", delay: 0.4 }}
-        className="self-center z-20 flex flex-row flex-wrap justify-center"
+        className="self-center z-20 flex flex-row flex-wrap justify-center mt-4 p-3"
       >
         <form className="w-72 px-2 pb-2">
           <select
@@ -93,11 +93,18 @@ const Answer = (props: Props) => {
             <option className="text-center tracking-widest">
               Guru Granth Sahib / Sikhism
             </option>
-            <option className="text-center tracking-widest">Agamas/Jainism</option>
-            <option className="text-center tracking-widest">Sutras/Buddhism</option>
-            <option className="text-center tracking-widest">The Torah/Judaism</option>
-            <option className="text-center tracking-widest">Avesta/Zoroastrianism</option>
-            
+            <option className="text-center tracking-widest">
+              Agamas/Jainism
+            </option>
+            <option className="text-center tracking-widest">
+              Sutras/Buddhism
+            </option>
+            <option className="text-center tracking-widest">
+              The Torah/Judaism
+            </option>
+            <option className="text-center tracking-widest">
+              Avesta/Zoroastrianism
+            </option>
           </select>
         </form>
         {/*Dropdown for language */}
@@ -125,17 +132,31 @@ const Answer = (props: Props) => {
       </motion.div>
 
       {/* button */}
+
       <motion.button
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, type: "spring", delay: 0.6 }}
-       
-        className="w-44 self-center border-2 m-4 p-4 rounded-2xl bg-[#202123] text-white  transition-all ease-in-out duration-100 uppercase tracking-[4px] z-20"
-        disabled={answer=="Loading Response...\nThis may take some time"?true:false}
+        className={`h-20 w-20 self-center bg-[#202123] text-white  transition-all ease-in-out duration-100 uppercase tracking-[4px] z-20 flex justify-center items-center rounded-full  mt-2 mb-4 ${
+          answer == "Loading Response...\nThis may take some time"
+            ? "animate-spin"
+            : ""
+        } hover:border-2 border-slate-200`}
+        disabled={
+          answer == "Loading Response...\nThis may take some time"
+            ? true
+            : false
+        }
         onClick={buttonClick}
-        
       >
-        Generate
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          className="fill-white "
+        >
+          <path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
+        </svg>
       </motion.button>
 
       {/* footer */}
@@ -143,7 +164,7 @@ const Answer = (props: Props) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, type: "spring", delay: 1 }}
-        className={`${zigfont.className} z-20 bottom-0 flex flex-row justify-center space-x-4 sm:space-x-10 text-gray-400 drop-shadow-[0_1.2px_1.2px_rgba(1,1,1,1)] `}
+        className={`${zigfont.className} z-20 bottom-3 left-0 right-0 sm:mx-1 flex flex-wrap flex-row justify-center space-x-4 sm:space-x-10 text-gray-400 drop-shadow-[0_1.2px_1.2px_rgba(1,1,1,1)] absolute `}
       >
         <p
           className="hover:text-white hover:scale-[1.05] hover:drop-shadow-2xl cursor-pointer "

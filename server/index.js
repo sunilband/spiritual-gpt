@@ -1,4 +1,5 @@
 const config = require("dotenv").config;
+const createSession=require("better-sse");
 config();
 const { Configuration, OpenAIApi } = require("openai");
 const cors = require("cors");
@@ -29,7 +30,7 @@ server.post("/", async (req, res) => {
   const question = req.body.question;
   const scripture = req.body.scripture;
   const language =req.body.language;
-  console.log("question: "+question + ` | Scripture:${scripture}. | Language:${language}.`);
+  console.log(`"question: ${question}`)
   const response = await openAi.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
