@@ -52,10 +52,11 @@ Install backend with npm
   npm install
   npm run server
 ```
+# My API is used as default , to use localhost follow the following steps:-
 
 -Check log for what port the server is running (eg:3000)
 
--Open the components/Answer.tsx file and change the apiServer value to the localhost:ENTER_YOUR_PORT_HERE
+-Open the components/Main.tsx file and change the apiServer value to the localhost:ENTER_YOUR_PORT_HERE
 
 -Open the server/.env file and enter your OpenAi key
 
