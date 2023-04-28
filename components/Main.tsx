@@ -15,6 +15,7 @@ const Main = (props: Props) => {
   // const apiServer = "http://localhost:5000/";
   const [input, setInput] = useState("");
   const [answer, setAnswer] = useState("");
+  const [loading,setLoading]=useState(false)
   const [scripture, setScripture] = useState("Bhagavad Gita / Hinduism ");
   const [language, setLanguage] = useState("English");
 

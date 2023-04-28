@@ -16,8 +16,9 @@ const Background = (props: Props) => {
     }, []);
 
     const particlesLoaded = useCallback(async (container: Container | undefined) => {
-        await console.log(container);
+       
     }, []);
+    
     return (
         <div 
         className='z-0 absolute opacity-50 overflow-hidden'>

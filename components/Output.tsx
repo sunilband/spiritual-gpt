@@ -9,6 +9,7 @@ type Props = {
 const Output = (props: Props) => {
   return (
     <motion.textarea
+        readOnly
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, type: "spring" }}

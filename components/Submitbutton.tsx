@@ -7,10 +7,12 @@ type Props = {
 }
 
 const Submit = (props: Props) => {
+
   return (
     <motion.button
         initial={{ scale: 0 }}
-        animate={{ scale: 1 ,rotate:360}}
+        // this is done because the button wont spin on submit if rotate is present in animate
+        animate={props.answer!=="Loading Response...\nThis may take some time"?{ scale: 1 ,rotate:360}:{scale: 1}}
         transition={{ duration: 2, type: "spring", delay: 0.6 }}
         className={`h-16 w-16 sm:mb-12 mt-3 sm:mt-0  self-center bg-[#202123] text-white  transition-all ease-in-out duration-100 uppercase tracking-[4px] z-20 flex justify-center items-center rounded-full ${
           props.answer == "Loading Response...\nThis may take some time"
