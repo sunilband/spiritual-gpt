@@ -19,7 +19,8 @@ const Answer = (props: Props) => {
     setInput(e.target.value);
   };
 
-  const buttonClick = async () => {
+  const buttonClick = async (e?:any) => {
+    // e is given for enter button submit
     if (input.length != 0) {
       setAnswer("Loading Response...\nThis may take some time");
       const result = await axios.post(`${apiServer}`, {
@@ -66,6 +67,9 @@ const Answer = (props: Props) => {
         className={`${zigfont.className} self-center focus:outline-none border-1 border-[#202123] m-4 p-4 rounded-2xl bg-[#40414f] text-white w-4/5 tracking-wide z-20  `}
         value={input}
         onChange={setterInput}
+        onKeyDown={(e) => (
+          e.keyCode === 13 ? buttonClick(e) : null
+        )}
         placeholder="Ask question here..."
       />
 
@@ -147,7 +151,8 @@ const Answer = (props: Props) => {
             ? true
             : false
         }
-        onClick={buttonClick}
+        onClick={buttonClick} 
+        
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
