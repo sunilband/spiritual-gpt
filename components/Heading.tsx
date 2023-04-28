@@ -1,8 +1,6 @@
 import React from "react";
 import localFont from "@next/font/local";
-import { motion, stagger } from "framer-motion";
-
-
+import { motion} from "framer-motion";
 const zigfont = localFont({ src: "../public/fonts/zigfont.ttf" });
 
 type Props = {};
