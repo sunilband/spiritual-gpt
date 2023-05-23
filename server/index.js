@@ -79,10 +79,9 @@ io.on("connection", (socket) => {
                 // Update the answer with the new content
                 if (content) {
                   ans += content;
-                  socket.emit("answer",content)
+                  socket.emit("answer",ans)
                 }
               }
-              
               // console.log(ans)
             }
           })
@@ -95,7 +94,7 @@ io.on("connection", (socket) => {
 
 app.get("/", (req, res) => {
   res.send(
-    "Send a post request in the body(JSON) in the format {question:'question here',scripture:'scripture here'}"
+   "visit spiritualgpt.vercel.app"
   );
 });
 
