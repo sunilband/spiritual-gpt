@@ -23,6 +23,7 @@ const Input = (props: Props) => {
           e.keyCode === 13 ? props.buttonClick(e) : null
         )}
         placeholder="Ask question here..."
+        
       />
   )
 }
