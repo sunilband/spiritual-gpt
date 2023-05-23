@@ -1,56 +1,102 @@
 const config = require("dotenv").config;
-const createSession=require("better-sse");
+const nodefetch = require("node-fetch");
+const API_URL = "https://api.openai.com/v1/chat/completions";
+const API_KEY = process.env.OPEN_AI_API_KEY;
 config();
-const { Configuration, OpenAIApi } = require("openai");
 const cors = require("cors");
-const fs = require("fs");
 const express = require("express");
-const morgan = require('morgan')
-const server = express();
-// middlewares
-// converts body to json
-server.use(express.json());
-// enable access to all url
-server.use(cors());
-//logger
-server.use(morgan("combined"))
-const openAi = new OpenAIApi(
-  new Configuration({
-    apiKey: process.env.OPEN_AI_API_KEY,
-   
-  })
-);
-
-server.get("/", (req, res) => {
-  res.send("Send a post request in the body(JSON) in the format {question:'question here',scripture:'scripture here'}");
+const morgan = require("morgan");
+const app = express();
+const http = require("http");
+const { Server } = require("socket.io");
+// const server = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+  },
 });
 
-server.post("/", async (req, res) => {
-  try{
-  const question = req.body.question;
-  const scripture = req.body.scripture;
-  const language =req.body.language;
-  console.log(`"question: ${question}`)
-  const response = await openAi.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "user",
-        content: question + ` according to ${scripture}. also give references.answer only in in ${language}`,
-      },
-    ],
-  }
+// enable access to all url
+app.use(cors());
+
+// middlewares
+
+// converts body to json
+app.use(express.json());
+//logger
+app.use(morgan("combined"));
+
+io.on("connection", (socket) => {
+  // check user connection
+  console.log("user connected: " + socket.id);
+
+  socket.on("question", (data) => {
+    let ans = "";
+    const question = data.question;
+    const scripture = data.scripture;
+    const language = data.language;
+
+    console.log(question, scripture, language);
+
+    try {
+      // Fetch the response from the OpenAI API
+      const response = nodefetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${API_KEY}`,
+        },
+        body: JSON.stringify({
+          model: "gpt-3.5-turbo",
+          messages: [
+            {
+              role: "user",
+              content:
+                question +
+                ` according to ${scripture}. also give references.answer only in in ${language}`,
+              // "what is love " + ` according to hindusim. also give references.answer only in in english`,
+            },
+          ],
+          stream: true, // For streaming responses
+        }),
+      })
+        .then((response) => response.body)
+        .then((resp) =>
+          resp.on("readable", () => {
+            let chunk;
+            while (null !== (chunk = resp.read())) {
+              const lines = chunk.toString().split("\n");
+
+              const parsedLines = lines
+                .map((line) => line.replace(/^data: /, "").trim()) // Remove the "data: " prefix
+                .filter((line) => line !== "" && line !== "[DONE]") // Remove empty lines and "[DONE]"
+                .map((line) => JSON.parse(line)); // Parse the JSON string
+
+              for (const parsedLine of parsedLines) {
+                const { choices } = parsedLine;
+                const { delta } = choices[0];
+                const { content } = delta;
+                // Update the answer with the new content
+                if (content) {
+                  ans += content;
+                }
+              }
+              socket.emit("answer",ans)
+              // console.log(ans)
+            }
+          })
+        );
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
+});
+
+app.get("/", (req, res) => {
+  res.send(
+    "Send a post request in the body(JSON) in the format {question:'question here',scripture:'scripture here'}"
   );
-  res.status(200);
-  res.json({ answer: response.data.choices[0].message.content });
-  console.log("answer:"+response.data.choices[0].message.content)
-  
-}
-catch (error) {
-  console.error(error)
-  res.status(500).send(error || 'Something went wrong');
-  res.json({ answer: "Something went wrong"});
-}
 });
 
 const Port = process.env.PORT || 5000;
