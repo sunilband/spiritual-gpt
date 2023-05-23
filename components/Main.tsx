@@ -11,13 +11,13 @@ import  io from "socket.io-client";
 
 
 type Props = {};
-const apiServer = "https://spiritual-gpt-api.onrender.com";
-// const apiServer = "http://localhost:5000/";
+// const apiServer = "https://spiritual-gpt-api.onrender.com";
+const apiServer = "http://localhost:5000/";
   const socket=io(apiServer ,{
     transports: ['websocket'], 
     upgrade: false
   })
-  
+let ans=""
 const Main = (props: Props) => {
 
   const [input, setInput] = useState("");
@@ -39,6 +39,7 @@ const Main = (props: Props) => {
     if(input=="")
     setAnswer("Type a question first !")
     else{
+      ans=""
       setAnswer("")
       socket.emit("question",{scripture: scripture,
         question: input,
@@ -51,7 +52,8 @@ const Main = (props: Props) => {
 
   useEffect(()=>{
     socket.on("answer",(data)=>{
-      setAnswer(data)
+      ans=ans+data
+      setAnswer(ans)
       // console.log(data)
     })
   },[socket])

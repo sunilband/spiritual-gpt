@@ -1,8 +1,7 @@
-const config = require("dotenv").config;
+require('dotenv').config();
 const nodefetch = require("node-fetch");
 const API_URL = "https://api.openai.com/v1/chat/completions";
 const API_KEY = process.env.OPEN_AI_API_KEY;
-config();
 const cors = require("cors");
 const express = require("express");
 const morgan = require("morgan");
@@ -80,9 +79,10 @@ io.on("connection", (socket) => {
                 // Update the answer with the new content
                 if (content) {
                   ans += content;
+                  socket.emit("answer",content)
                 }
               }
-              socket.emit("answer",ans)
+              
               // console.log(ans)
             }
           })
