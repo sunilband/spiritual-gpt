@@ -53,7 +53,7 @@ const Main = (props: Props) => {
       setAnswer(data)
       // console.log(data)
     })
-  },[socket])
+  },[])
 
 
 

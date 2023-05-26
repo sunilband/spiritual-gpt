@@ -1,10 +1,13 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 
+
 type Props = {
     answer:any,
 
 }
+
+
 
 const Output = (props: Props) => {
   return (
