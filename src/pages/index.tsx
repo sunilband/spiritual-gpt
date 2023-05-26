@@ -3,7 +3,7 @@ import Main from "../../components/Main"
 import Background from "../../components/Background"
 import Favicon from "react-favicon";
 import Head from 'next/head';
-import LoginMain from "../../components/login/LoginMain";
+
 
 export default function Home() {
  
