@@ -47,9 +47,9 @@ const Dropdowns = (props: Props) => {
           </select>
         </form>
         {/*Dropdown for language */}
-        <form className="w-72 px-2">
+        <form className="w-72 px-2 pb-2">
           <select
-            className="w-full p-2.5  text-white bg-[#202123] rounded-md shadow-sm outline-none appearance-none focus:border-[#202123] tracking-widest"
+            className="w-full p-2.5  text-white bg-[#202123] rounded-md shadow-sm outline-none appearance-none focus:border-[#202123] tracking-widest "
             onChange={props.dropdownLanguage}
           >
             <option className="text-center tracking-widest">English</option>

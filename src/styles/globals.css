@@ -93,14 +93,10 @@
   }
 
 /* login and signup cards */
-  .blurcontainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-size: 100%;
- }
+ 
  
  .card {
+    text-align: justify;
     padding: 20px 20px 20px 20px;
     background: rgba(255, 255, 255, 0.07);
     backdrop-filter: blur(2px);

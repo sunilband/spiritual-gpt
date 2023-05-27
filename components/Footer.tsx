@@ -15,7 +15,7 @@ const Footer = (props: Props) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, type: "spring", delay: 1 }}
-        className={`${zigfont.className} z-20 bottom-3 left-0 right-0 sm:mx-1 flex flex-wrap flex-row justify-center space-x-4 sm:space-x-10 text-gray-400 drop-shadow-[0_1.2px_1.2px_rgba(1,1,1,1)] absolute `}
+        className={`${zigfont.className} z-20 bottom-0 left-0 right-0  flex flex-wrap flex-row justify-center space-x-4 sm:space-x-10 text-gray-400 drop-shadow-[0_1.2px_1.2px_rgba(1,1,1,1)] absolute card`}
       >
         <p
           className="hover:text-white hover:scale-[1.05] hover:drop-shadow-2xl cursor-pointer "
@@ -43,7 +43,7 @@ const Footer = (props: Props) => {
           className="hover:text-white hover:scale-[1.05] hover:drop-shadow-2xl cursor-pointer"
           onClick={() => {
             props.setAnswer(
-              `Email: sunilbandwork@gmail.com\nLinkedIn: www.linkedin.com/in/sunil-band/\nGithub: github.com/sunilband\nPortfolio: sunilband.netlify.com`
+              `Email: sunilbandwork@gmail.com\nLinkedIn: www.linkedin.com/in/sunil-band/\nGithub: github.com/sunilband\nPortfolio: sunilband.netlify.com\nResume: sunilresume.vercel.app`
             );
             props.setInput("");
           }}
