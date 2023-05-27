@@ -9,7 +9,7 @@ export const Login = (props: Props) => {
   };
   return (
     <div className=" w-screen h-screen flex flex-col items-center justify-center bg-[#343541] z-20 overflow-hidden blurcontainer px-4 blurcontainer ">
-      <div className="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-6 card rounded-md">
+      <div className="w-10/12 sm:w-8/12 md:w-6/12 lg:w-5/12 xl:w-4/12 mb-6 card rounded-md p-[20px] pb-[40px] scale-95">
       <h2
         className={`text-slate-200 text-center font-medium pb-4 uppercase tracking-[6px]`}
       >

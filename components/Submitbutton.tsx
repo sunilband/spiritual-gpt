@@ -9,12 +9,13 @@ type Props = {
 const Submit = (props: Props) => {
 
   return (
+    <div className="scale-95">
     <motion.button
         initial={{ scale: 0 }}
         // this is done because the button wont spin on submit if rotate is present in animate
         animate={props.answer!=="Loading Response...\nThis may take some time"?{ scale: 1 ,rotate:360}:{scale: 1}}
         transition={{ duration: 2, type: "spring", delay: 0.6 }}
-        className={`h-16 w-16 sm:mb-12 mt-3 sm:mt-0  self-center bg-[#202123] text-white  transition-all ease-in-out duration-100 uppercase tracking-[4px] z-20 flex justify-center items-center rounded-full ${
+        className={`h-16 w-16 sm:mb-10 mt-2 sm:mt-0  self-center bg-[#202123] text-white  transition-all ease-in-out duration-100 uppercase tracking-[4px] z-20 flex justify-center items-center rounded-full ${
           props.answer == "Loading Response...\nThis may take some time"
             ? "animate-spin"
             : ""
@@ -36,6 +37,7 @@ const Submit = (props: Props) => {
           <path d="M7.293 4.707 14.586 12l-7.293 7.293 1.414 1.414L17.414 12 8.707 3.293 7.293 4.707z" />
         </svg>
       </motion.button>
+      </div>
   )
 }
 

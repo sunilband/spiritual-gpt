@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import localFont from "@next/font/local";
+import Submitbutton from "./Submitbutton"
 const zigfont = localFont({ src: "../public/fonts/zigfont.ttf" });
 
 type Props = {
@@ -16,7 +17,7 @@ const Input = (props: Props) => {
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, type: "spring", delay: 0.2 }}
         type="text"
-        className={`${zigfont.className} self-center focus:outline-none border-1 border-[#202123] m-4 p-4 rounded-2xl bg-[#40414f] text-white w-4/5 tracking-wide z-20  `}
+        className={`${zigfont.className} self-center focus:outline-none border-1 border-[#202123] m-4 p-4 rounded-lg bg-[#40414f] text-white w-4/5 tracking-wide z-20  `}
         value={props.input}
         onChange={props.setterInput}
         onKeyDown={(e) => (
@@ -25,6 +26,7 @@ const Input = (props: Props) => {
         placeholder="Ask question here..."
         
       />
+        
   )
 }
 

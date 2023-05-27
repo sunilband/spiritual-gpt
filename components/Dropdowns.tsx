@@ -13,7 +13,7 @@ const Dropdowns = (props: Props) => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ duration: 1.5, type: "spring", delay: 0.4 }}
-        className="self-center z-20 flex flex-row flex-wrap justify-center mt-2 p-2 space-y-1 sm:space-y-0"
+        className="self-center z-20 flex flex-row flex-wrap justify-center  space-y-1 sm:space-y-0"
       >
         <form className="w-72 px-2 pb-2">
           <select
