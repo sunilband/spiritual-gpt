@@ -1,8 +1,24 @@
+'use client'
 import './globals.css'
+import Navbar from '../components/Navbar/Navbar'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+import { type ThemeProviderProps } from 'next-themes/dist/types'
+import { Toaster } from '@/components/ui/toaster'
+import { useEffect, useState } from 'react'
+import dropdownContext from '../context/dropdownContext'
+import clsx from 'clsx'
+import Dailog from '@/components/Dailog/Dailog'
+import { setCookie } from 'nookies'
+import { getCookie } from '@/utils/getCookie'
+import { COOKIE_KEYS } from '@/utils/cookieEnums'
 
 const inter = Inter({ subsets: ['latin'] })
+
+function ThemeProvider({ children, ...props }: ThemeProviderProps) {
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>
+}
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -14,9 +30,43 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  // setting language and scripture state for Context
+  const [language, setLanguage] = useState<string | null>('English')
+  const [scripture, setScripture] = useState<string | null>(
+    'Bhagavad Gita/ Hinduism',
+  )
+  // modal visiblity
+  const [modelVisible, setModelVisible] = useState(false)
+
+  // setting terms cookie
+  const termsSetter = () => {
+    setCookie(null, COOKIE_KEYS.Terms, 'True', {
+      path: '/',
+    })
+    setModelVisible(false)
+  }
+
+  //checking is terms cookie is set or not
+  useEffect(() => {
+    if (getCookie(COOKIE_KEYS.Terms) !== 'True') {
+      setModelVisible(true)
+    }
+  }, [])
+
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html lang="en" suppressHydrationWarning>
+      <body className={clsx(inter.className)}>
+        <dropdownContext.Provider
+          value={{ language, setLanguage, scripture, setScripture }}
+        >
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            <Navbar />
+            {modelVisible && <Dailog setTerms={termsSetter} />}
+            {children}
+            <Toaster />
+          </ThemeProvider>
+        </dropdownContext.Provider>
+      </body>
     </html>
   )
 }
