@@ -12,13 +12,38 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
-
+import userContext from '@/context/userContext'
+import { useContext } from 'react'
 import { ThemeButton } from '../ThemeButton/ThemeButton'
 import { Button } from '../ui/button'
-
+import { signOut } from 'firebase/auth'
+import { auth, provider } from '../../firebase/firebase'
+import { destroyCookie } from 'nookies'
+import { COOKIE_KEYS } from '@/utils/cookieEnums'
+import Avatar from 'react-avatar'
+import { usePathname } from 'next/navigation'
 function Navbar() {
+  const page = usePathname()
+  console.log('page', page)
+  const routes = ['/login', '/signup']
+  const { setUser, user } = useContext(userContext)
+
+  const logout = () => {
+    signOut(auth)
+      .then(() => {
+        setUser(null)
+        destroyCookie(null, COOKIE_KEYS.User, {
+          path: '/',
+        })
+        console.log('User signed out')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
+
   return (
-    <div className="flex justify-center">
+    <div className="flex justify-center absolute left-0 right-0">
       <NavigationMenu className="h-16 ">
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -50,63 +75,62 @@ function Navbar() {
               </ul>
             </NavigationMenuContent>
           </NavigationMenuItem>
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-transparent hover:bg-transparent">
-              History
-            </NavigationMenuTrigger>
-            <NavigationMenuContent className="z-10">
-              <ul className="grid w-[300px]  gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                {history.map((history) => (
-                  <ListItem
-                    key={history.title}
-                    title={history.title}
-                    href={history.href}
-                  >
-                    {history.description}
-                  </ListItem>
-                ))}
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
 
-          {/* <NavigationMenuItem>
-            <Link href="/docs" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Profile
-              </NavigationMenuLink>
-            </Link>
-          </NavigationMenuItem> */}
+          {!routes.includes(page) ? (
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent hover:bg-transparent">
+                History
+              </NavigationMenuTrigger>
+              <NavigationMenuContent className="z-10">
+                <ul className="grid w-[300px]  gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                  {history.map((history) => (
+                    <ListItem
+                      key={history.title}
+                      title={history.title}
+                      href={history.href}
+                    >
+                      {history.description}
+                    </ListItem>
+                  ))}
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          ) : null}
 
-          <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-transparent hover:bg-transparent">
-              User
-            </NavigationMenuTrigger>
-            <NavigationMenuContent>
-              <ul className="flex justify-center items-center gap-4 p-6 w-[320px] md:w-[400px] lg:w-[400px] ">
-                <li className="flex flex-col justify-center items-center w-auto">
-                  <div className="mb-2">
-                    <Image
-                      src="https://freepngimg.com/download/google/66726-customer-account-google-service-button-search-logo.png"
-                      alt="profile-pic"
-                      width={50}
-                      height={50}
-                    />
-                  </div>
+          {!routes.includes(page) ? (
+            <NavigationMenuItem>
+              <NavigationMenuTrigger className="bg-transparent hover:bg-transparent">
+                User
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="flex justify-center items-center gap-4 p-6 w-[320px] md:w-[400px] lg:w-[400px] ">
+                  <li className="flex flex-col justify-center items-center w-auto">
+                    <div className="mb-2">
+                      <Avatar
+                        name={user?.name}
+                        src={user?.image}
+                        round={true}
+                        size="70"
+                        color="gray"
+                      />
+                    </div>
 
-                  <ListItem
-                    href="/docs"
-                    title="Profile"
-                    className="text-center w-64"
-                  ></ListItem>
-                  <ListItem
-                    href="/docs/primitives/typography"
-                    title="Sign Out"
-                    className="text-center text-[#EF4444] hover:text-[#EF4444] w-64"
-                  ></ListItem>
-                </li>
-              </ul>
-            </NavigationMenuContent>
-          </NavigationMenuItem>
+                    <ListItem
+                      href="/docs"
+                      title="Profile"
+                      className="text-center w-64"
+                    ></ListItem>
+                    <ListItem
+                      onClick={logout}
+                      href="/"
+                      title="Sign Out"
+                      className="text-center text-[#EF4444] hover:text-[#EF4444] w-64"
+                    ></ListItem>
+                  </li>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
+          ) : null}
 
           {/* theme button */}
           <NavigationMenuItem>

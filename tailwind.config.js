@@ -15,6 +15,7 @@ module.exports = {
         '2xl': '1400px',
       },
     },
+
     extend: {
       colors: {
         border: 'hsl(var(--border))',
@@ -50,6 +51,16 @@ module.exports = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        wave: {
+          '0%': { transform: 'rotate(0.0deg)' },
+          '10%': { transform: 'rotate(14deg)' },
+          '20%': { transform: 'rotate(-8deg)' },
+          '30%': { transform: 'rotate(14deg)' },
+          '40%': { transform: 'rotate(-4deg)' },
+          '50%': { transform: 'rotate(10.0deg)' },
+          '60%': { transform: 'rotate(0.0deg)' },
+          '100%': { transform: 'rotate(0.0deg)' },
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -69,6 +80,7 @@ module.exports = {
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'waving-hand': 'wave 2s linear infinite',
       },
     },
   },

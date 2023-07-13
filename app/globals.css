@@ -24,6 +24,19 @@
   z-index: 0;
 }
 
+/* animations */
+.spin {
+  animation: spin 20s linear infinite;
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
 @layer base {
   :root {
     --background: 0 0% 100%;

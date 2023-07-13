@@ -8,11 +8,15 @@ import { type ThemeProviderProps } from 'next-themes/dist/types'
 import { Toaster } from '@/components/ui/toaster'
 import { useEffect, useState } from 'react'
 import dropdownContext from '../context/dropdownContext'
+import userContext from '../context/userContext'
+import { UserInterface } from '../context/userContext'
+
 import clsx from 'clsx'
 import Dailog from '@/components/Dailog/Dailog'
-import { setCookie } from 'nookies'
+import { setCookie, parseCookies } from 'nookies'
 import { getCookie } from '@/utils/getCookie'
 import { COOKIE_KEYS } from '@/utils/cookieEnums'
+import { useRouter } from 'next/navigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,11 +34,19 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const router = useRouter()
   // setting language and scripture state for Context
   const [language, setLanguage] = useState<string | null>('English')
   const [scripture, setScripture] = useState<string | null>(
     'Bhagavad Gita/ Hinduism',
   )
+  // set user context state
+  const [user, setUser] = useState<UserInterface | null>({
+    email: '',
+    image: '',
+    name: '',
+  })
+
   // modal visiblity
   const [modelVisible, setModelVisible] = useState(false)
 
@@ -46,26 +58,42 @@ export default function RootLayout({
     setModelVisible(false)
   }
 
-  //checking is terms cookie is set or not
   useEffect(() => {
+    //checking is terms cookie is set or not
     if (getCookie(COOKIE_KEYS.Terms) !== 'True') {
       setModelVisible(true)
+    }
+    // checking if user in cookies
+    const cookies = parseCookies()
+    const data = cookies.user ? JSON.parse(cookies.user) : null
+    if (data) {
+      setUser({
+        ...user,
+        name: data.name,
+        email: data.email,
+        image: data.image,
+      })
+    }
+    if (!data) {
+      router.push('/login')
     }
   }, [])
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={clsx(inter.className)}>
-        <dropdownContext.Provider
-          value={{ language, setLanguage, scripture, setScripture }}
-        >
-          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-            <Navbar />
-            {modelVisible && <Dailog setTerms={termsSetter} />}
-            {children}
-            <Toaster />
-          </ThemeProvider>
-        </dropdownContext.Provider>
+        <userContext.Provider value={{ user, setUser }}>
+          <dropdownContext.Provider
+            value={{ language, setLanguage, scripture, setScripture }}
+          >
+            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+              <Navbar />
+              {modelVisible && <Dailog setTerms={termsSetter} />}
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </dropdownContext.Provider>
+        </userContext.Provider>
       </body>
     </html>
   )
