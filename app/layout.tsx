@@ -9,7 +9,10 @@ import { Toaster } from '@/components/ui/toaster'
 import { useEffect, useState } from 'react'
 import dropdownContext from '../context/dropdownContext'
 import userContext from '../context/userContext'
+import historyContext from '../context/historyContext'
+
 import { UserInterface } from '../context/userContext'
+import { firebaseObject } from '../context/historyContext'
 
 import clsx from 'clsx'
 import Dailog from '@/components/Dailog/Dailog'
@@ -46,23 +49,10 @@ export default function RootLayout({
     image: '',
     name: '',
   })
-
-  // modal visiblity
-  const [modelVisible, setModelVisible] = useState(false)
-
-  // setting terms cookie
-  const termsSetter = () => {
-    setCookie(null, COOKIE_KEYS.Terms, 'True', {
-      path: '/',
-    })
-    setModelVisible(false)
-  }
+  // set history context state
+  const [history, setHistory] = useState<firebaseObject[] | null>(null)
 
   useEffect(() => {
-    //checking is terms cookie is set or not
-    if (getCookie(COOKIE_KEYS.Terms) !== 'True') {
-      setModelVisible(true)
-    }
     // checking if user in cookies
     const cookies = parseCookies()
     const data = cookies.user ? JSON.parse(cookies.user) : null
@@ -83,16 +73,17 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={clsx(inter.className)}>
         <userContext.Provider value={{ user, setUser }}>
-          <dropdownContext.Provider
-            value={{ language, setLanguage, scripture, setScripture }}
-          >
-            <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
-              <Navbar />
-              {modelVisible && <Dailog setTerms={termsSetter} />}
-              {children}
-              <Toaster />
-            </ThemeProvider>
-          </dropdownContext.Provider>
+          <historyContext.Provider value={{ history, setHistory }}>
+            <dropdownContext.Provider
+              value={{ language, setLanguage, scripture, setScripture }}
+            >
+              <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+                <Navbar />
+                {children}
+                <Toaster />
+              </ThemeProvider>
+            </dropdownContext.Provider>
+          </historyContext.Provider>
         </userContext.Provider>
       </body>
     </html>

@@ -1,0 +1,9 @@
+#style2::-webkit-scrollbar {
+  width: 6px;
+  background-color: transparent;
+}
+
+#style2::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgb(133, 132, 132);
+}

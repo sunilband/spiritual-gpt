@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { history } from './data'
+// import { history } from './data'
 import { cn } from '@/lib/utils'
 import {
   NavigationMenu,
@@ -13,6 +13,7 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
 import userContext from '@/context/userContext'
+import historyContext from '@/context/historyContext'
 import { useContext } from 'react'
 import { ThemeButton } from '../ThemeButton/ThemeButton'
 import { Button } from '../ui/button'
@@ -22,11 +23,21 @@ import { destroyCookie } from 'nookies'
 import { COOKIE_KEYS } from '@/utils/cookieEnums'
 import Avatar from 'react-avatar'
 import { usePathname } from 'next/navigation'
+import Dailog from '../Dailog/Dailog'
+import { set } from 'firebase/database'
 function Navbar() {
   const page = usePathname()
-  console.log('page', page)
   const routes = ['/login', '/signup']
   const { setUser, user } = useContext(userContext)
+  const { history, setHistory } = useContext(historyContext)
+  const [dailogData, setDailogData] = React.useState({
+    question: '',
+    answer: '',
+    time: '',
+    scripture: '',
+    language: '',
+  })
+  const [openValue, setOpenValue] = React.useState(false)
 
   const logout = () => {
     signOut(auth)
@@ -44,6 +55,18 @@ function Navbar() {
 
   return (
     <div className="flex justify-center absolute left-0 right-0">
+      {history ? (
+        <Dailog
+          question={dailogData.question}
+          answer={dailogData.answer}
+          time={dailogData.time}
+          scripture={dailogData.scripture}
+          language={dailogData.language}
+          openValue={openValue}
+          setOpenValue={setOpenValue}
+        />
+      ) : null}
+
       <NavigationMenu className="h-16 ">
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -82,17 +105,38 @@ function Navbar() {
                 History
               </NavigationMenuTrigger>
               <NavigationMenuContent className="z-10">
-                <ul className="grid w-[300px]  gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-                  {history.map((history) => (
-                    <ListItem
-                      key={history.title}
-                      title={history.title}
-                      href={history.href}
-                    >
-                      {history.description}
-                    </ListItem>
-                  ))}
-                </ul>
+                {history ? (
+                  <ul className="grid w-[300px]  gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                    {history?.map((item: any, key: any) => (
+                      <div key={key} className="border p-2 rounded-md">
+                        <ListItem
+                          title={
+                            item.question.length > 30
+                              ? item.question.substring(0, 30) + '...'
+                              : item.question
+                          }
+                          onClick={() => {
+                            setDailogData({
+                              question: item.question,
+                              answer: item.answer,
+                              time: item.time,
+                              scripture: item.scripture,
+                              language: item.language,
+                            })
+                            setOpenValue(true)
+                          }}
+                        >
+                          {item.answer}
+                        </ListItem>
+                        <p className="text-xs text-center mt-1">{item.time}</p>
+                      </div>
+                    ))}
+                  </ul>
+                ) : (
+                  <ul className="flex p-4 w-max py-9">
+                    <p className="text-center">Ask questions to view history</p>
+                  </ul>
+                )}
               </NavigationMenuContent>
             </NavigationMenuItem>
           ) : null}

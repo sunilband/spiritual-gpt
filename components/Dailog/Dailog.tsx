@@ -14,46 +14,59 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useState } from 'react'
+import classes from './Dailog.module.css'
 
 type MyFunctionType = () => void
 type Props = {
-  setTerms: MyFunctionType
+  question: string
+  answer: string
+  time: string
+  scripture: string
+  language: string
+  openValue: boolean
+  setOpenValue: any
 }
 
-const Dailog = ({ setTerms }: Props) => {
-  const [checked, setChecked] = useState(false)
-
+const Dailog = ({
+  question,
+  answer,
+  time,
+  scripture,
+  language,
+  openValue,
+  setOpenValue,
+}: Props) => {
   return (
-    <Dialog open>
-      <DialogContent className="sm:max-w-[425px]">
+    <Dialog open={openValue}>
+      <DialogContent className="sm:max-w-[425px] flex flex-col items-end">
         <DialogHeader>
-          <DialogTitle>Terms of use</DialogTitle>
+          <DialogTitle>
+            {question}
+            <p className="break-words">
+              {/* asddddddaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa */}
+            </p>
+          </DialogTitle>
           <DialogDescription>
-            Please read these{' '}
-            <Link href="/terms" className="underline">
-              terms of use
-            </Link>{' '}
-            carefully before using the website
+            <p className="font-bold">Scripture: {scripture}</p>
+            <p className="font-bold">Language: {language}</p>
+            <p className="font-bold mb-2">Time: {time}</p>
+            <p
+              className={`max-h-96 overflow-y-scroll
+            ${classes.style}`}
+              id={classes.style2}
+            >
+              {answer}
+            </p>
           </DialogDescription>
         </DialogHeader>
-        <DialogFooter className="flex justify-center">
-          <div className="flex items-center justify-around space-x-2 w-auto order-1">
-            <div className="flex gap-2">
-              <Checkbox
-                id="terms"
-                onClick={() => {
-                  setChecked(!checked)
-                }}
-              />
-              <Label htmlFor="terms">
-                I have read and accept the terms of use
-              </Label>
-            </div>
-
-            <Button disabled={!checked} type="submit" onClick={setTerms}>
-              Accept
-            </Button>
-          </div>
+        <DialogFooter>
+          <Button
+            variant="default"
+            onClick={() => setOpenValue(false)}
+            className="w-96"
+          >
+            Close
+          </Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
