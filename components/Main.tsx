@@ -7,6 +7,8 @@ import Output from "./Output";
 import Input from "./Input";
 const zigfont = localFont({ src: "../public/fonts/zigfont.ttf" });
 import io from "socket.io-client";
+import 'firebase/database';
+
 
 
 type Props = {};
@@ -51,7 +53,6 @@ const Main = (props: Props) => {
   useEffect(()=>{
     socket.on("answer",(data)=>{
       setAnswer(data)
-      // console.log(data)
     })
   },[])
 
@@ -84,7 +85,7 @@ const Main = (props: Props) => {
       />
 
       {/* button */}
-      <Submit answer={answer} buttonClick={buttonClick} />
+      <Submit answer={answer} buttonClick={buttonClick}/>
 
       {/* footer */}
       <Footer setInput={setInput} setAnswer={setAnswer} />
