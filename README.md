@@ -1,6 +1,8 @@
 
-# Spiritual GPT
-
+# Spiritual GPT (LEGACY VERSION)
+CHECKOUT 
+<a href="https://github.com/sunilband/Spiritual-GPT-2.0" target="_blank">Spiritual GPT 2.0 </a>
+<br/> 
 Spiritual GPT is designed to provide answers from religious scriptures to users seeking spiritual guidance or knowledge. This chatbot is trained to recognize queries related to religious and spiritual topics and provide relevant information and answers from various religious scriptures such as the Bhagavad Gita, Bible, Quran, Guru Granth Sahib,and others.
 
 Spiritual GPT utilizes OpenAI Chat gpt 3.5 turbo to understand the context of user queries and generate accurate and relevant responses.
